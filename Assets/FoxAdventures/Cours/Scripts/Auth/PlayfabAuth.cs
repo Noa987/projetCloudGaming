@@ -50,20 +50,7 @@ public static class PlayfabAuth
 
         // Call RegisterPlayFabUser with the request
         PlayFabClientAPI.RegisterPlayFabUser(request, registerResultCallback, errorCallback);
-        //registerResultCallback.Invoke();
     }
-
-    // public static void OnRegisterSuccess(RegisterPlayFabUserResult result)
-    // {
-    //     Debug.Log("Registration successful");
-    //     // Do something here if the registration was successful
-    // }
-
-    // public static void OnError(PlayFabError error)
-    // {
-    //     Debug.LogError($"Error: {error.ErrorMessage}");
-    //     // Do something here if there was an error
-    // }
 
     public static void TryLoginWithEmail(string email, string password, Action<LoginResult> loginResultCallback, Action<PlayFabError> errorCallback)
     {
@@ -77,12 +64,6 @@ public static class PlayfabAuth
         };
         PlayFabClientAPI.LoginWithEmailAddress(request, loginResultCallback, errorCallback);
     }
-
-    // public static void OnLoginSuccess(LoginResult result)
-    // {
-    //     Debug.Log("Login successful");
-    //     // Do something here if the login was successful
-    // }
 
     // Logout
     public static void Logout(Action logoutResultCallback, Action errorCallback)

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
 
 [System.Serializable]
 public class TitleNewsViewEntry
@@ -53,16 +55,20 @@ public class TitleNewsView : MonoBehaviour
         // Trigger news show if logged in
         if (PlayfabAuth.IsLoggedIn == true)
         {
-            // TODO: Request playfab to retrieve the latest news
-            this.OnGetTitleNewsSuccess();       // Fake
+            PlayFabClientAPI.GetTitleNews(new GetTitleNewsRequest(), 
+                result => {
+                    // Handle successful retrieval of news
+                    this.OnGetTitleNewsSuccess(result.News);
+                }, 
+                error => {
+                    // Handle error while retrieving news
+                    Debug.LogError("Error retrieving title news: " + error.ErrorMessage);
+                }
+            );
         }
     }
-
-    private void OnGetTitleNewsSuccess()
+private void OnGetTitleNewsSuccess(List<TitleNewsItem> news)
     {
-        // Fill data of the list
-        List<TitleNewsViewEntry> news = new List<TitleNewsViewEntry>();
-
         // News found
         if (news != null && news.Count > 0)
         {
@@ -76,16 +82,17 @@ public class TitleNewsView : MonoBehaviour
                         newsContent += "\n\n";
 
                     // Fill content with our news
-                    newsContent += "- " + news[i].DisplayedDateStr + " -";
-                    newsContent += "\n<color=orange>" + news[i].title + "</color>";
-                    newsContent += "\n" + news[i].body;
+                    newsContent += "- " + news[i].Timestamp + " -";
+                    newsContent += "\n<color=orange>" + news[i].Title + "</color>";
+                    newsContent += "\n" + news[i].Body;
                 }
 
                 // Update view
                 this.contentText.text = newsContent;
+                Debug.Log(this.contentText.text);
             }
 
-            // Show
+            Debug.Log("Ici");
             this.ShowView();
         }
         // No news
