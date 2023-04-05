@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
 
 public class PlayfabAuthPanelViewLogin : PlayfabAuthPanelView
 {
@@ -78,7 +80,7 @@ public class PlayfabAuthPanelViewLogin : PlayfabAuthPanelView
         }
     }
 
-    private void OnLoginSuccess()
+    private void OnLoginSuccess(LoginResult result)
     {
         // Log
         Debug.LogWarning("PlayfabAuthPanelViewLogin.OnLoginSuccess() - TODO");
@@ -88,7 +90,7 @@ public class PlayfabAuthPanelViewLogin : PlayfabAuthPanelView
             this.PlayfabAuthPanel.HideAll();
     }
 
-    private void OnLoginError()
+    private void OnLoginError(PlayFabError error)
     {
         // Log
         Debug.LogWarning("PlayfabAuthPanelViewLogin.OnLoginError() - TODO");

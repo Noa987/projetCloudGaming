@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
 
 public class PlayfabAuthPanelViewRegister : PlayfabAuthPanelView
 {
@@ -58,7 +60,7 @@ public class PlayfabAuthPanelViewRegister : PlayfabAuthPanelView
         }
     }
 
-    private void OnRegisterSuccess()
+    private void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
         // Log
         Debug.LogWarning("PlayfabAuthPanelViewRegister.OnRegisterSuccess() - TODO");
@@ -68,7 +70,7 @@ public class PlayfabAuthPanelViewRegister : PlayfabAuthPanelView
             this.PlayfabAuthPanel.ShowLogin();
     }
 
-    private void OnRegisterError()
+    private void OnRegisterError(PlayFabError error)
     {
         // Log
         Debug.LogError("PlayfabAuthPanelViewRegister.OnRegisterError() - Error: TODO");

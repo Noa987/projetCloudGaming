@@ -31,12 +31,12 @@ public static class PlayfabAuth
     }
 
     // Functions
-    public static void TryRegisterWithEmail(string email, string password, Action registerResultCallback, Action errorCallback)
+    public static void TryRegisterWithEmail(string email, string password, Action<RegisterPlayFabUserResult> registerResultCallback, Action<PlayFabError> errorCallback)
     {
         PlayfabAuth.TryRegisterWithEmail(email, password, email, registerResultCallback, errorCallback);
     }
 
-    public static void TryRegisterWithEmail(string email, string password, string username, Action registerResultCallback, Action errorCallback)
+    public static void TryRegisterWithEmail(string email, string password, string username, Action<RegisterPlayFabUserResult> registerResultCallback, Action<PlayFabError> errorCallback)
     {
         // --------------------------------------
         // >> For the moment, we will consider it to be a succes
@@ -49,23 +49,23 @@ public static class PlayfabAuth
         };
 
         // Call RegisterPlayFabUser with the request
-        PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSuccess, OnError);
+        PlayFabClientAPI.RegisterPlayFabUser(request, registerResultCallback, errorCallback);
         //registerResultCallback.Invoke();
     }
 
-    public static void OnRegisterSuccess(RegisterPlayFabUserResult result)
-    {
-        Debug.Log("Registration successful");
-        // Do something here if the registration was successful
-    }
+    // public static void OnRegisterSuccess(RegisterPlayFabUserResult result)
+    // {
+    //     Debug.Log("Registration successful");
+    //     // Do something here if the registration was successful
+    // }
 
-    public static void OnError(PlayFabError error)
-    {
-        Debug.LogError($"Error: {error.ErrorMessage}");
-        // Do something here if there was an error
-    }
+    // public static void OnError(PlayFabError error)
+    // {
+    //     Debug.LogError($"Error: {error.ErrorMessage}");
+    //     // Do something here if there was an error
+    // }
 
-    public static void TryLoginWithEmail(string email, string password, Action loginResultCallback, Action errorCallback)
+    public static void TryLoginWithEmail(string email, string password, Action<LoginResult> loginResultCallback, Action<PlayFabError> errorCallback)
     {
         // -------------------------------
         // >> For the moment, we will consider it to be a success
@@ -75,14 +75,14 @@ public static class PlayfabAuth
             Email = email,
             Password = password
         };
-        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnError);
+        PlayFabClientAPI.LoginWithEmailAddress(request, loginResultCallback, errorCallback);
     }
 
-    public static void OnLoginSuccess(LoginResult result)
-    {
-        Debug.Log("Login successful");
-        // Do something here if the login was successful
-    }
+    // public static void OnLoginSuccess(LoginResult result)
+    // {
+    //     Debug.Log("Login successful");
+    //     // Do something here if the login was successful
+    // }
 
     // Logout
     public static void Logout(Action logoutResultCallback, Action errorCallback)
